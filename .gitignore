@@ -1,0 +1,24 @@
+# Neovim swap files
+*.swp
+
+# Neovim backup files
+*.bak
+
+# Neovim undo directory
+undodir/
+
+# Neovim session files
+Session.vim
+
+# Plugin directories
+pack/
+
+# Local configuration files
+init.local.vim
+
+# Log files
+*.log
+
+# Packer generated files
+packer_compiled.lua
+
