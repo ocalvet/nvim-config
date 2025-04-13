@@ -59,7 +59,7 @@ git clone --depth 1 https://github.com/wbthomason/packer.nvim \
 ### 3. Clone this repository
 
 ```bash
-git clone https://github.com/yourusername/neovim-config ~/.config/nvim
+git clone https://github.com/ocalvet/nvim-config ~/.config/nvim
 ```
 
 ### 4. Install plugins
