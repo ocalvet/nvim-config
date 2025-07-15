@@ -27,4 +27,10 @@ require("lazy").setup({
 	require("plugins.alpha"),
 	require("plugins.indent-blankline"),
 	require("plugins.misc"),
+	require("plugins.dap"),
+	require("plugins.testing"),
+	require("plugins.auto-tags"),
+	require("plugins.which-key"),
+	require("plugins.surround"),
+	require("plugins.diffview"),
 })

@@ -24,12 +24,31 @@ return {
 
     local sources = {
       diagnostics.checkmake,
-      formatting.prettier.with { filetypes = { 'html', 'json', 'yaml', 'markdown' } },
+      formatting.prettier.with { 
+        filetypes = { 
+          'html', 
+          'json', 
+          'yaml', 
+          'markdown',
+          'javascript',
+          'javascriptreact',
+          'typescript',
+          'typescriptreact',
+          'css',
+          'scss',
+          'less'
+        } 
+      },
       formatting.stylua,
       formatting.shfmt.with { args = { '-i', '4' } },
       formatting.terraform_fmt,
       require('none-ls.formatting.ruff').with { extra_args = { '--extend-select', 'I' } },
       require 'none-ls.formatting.ruff_format',
+      require('none-ls.diagnostics.eslint_d').with {
+        condition = function(utils)
+          return utils.root_has_file { '.eslintrc.js', '.eslintrc.json', '.eslintrc.yaml', '.eslintrc.yml', '.eslintrc', 'eslint.config.js' }
+        end,
+      },
     }
 
     local augroup = vim.api.nvim_create_augroup('LspFormatting', {})
