@@ -22,12 +22,12 @@ return {
                     g = true,
                 },
             },
-            window = {
+            win = {
                 border = "rounded",
-                position = "bottom",
-                margin = { 1, 0, 1, 0 },
                 padding = { 2, 2, 2, 2 },
-                winblend = 0,
+                wo = {
+                    winblend = 0,
+                },
             },
             layout = {
                 height = { min = 4, max = 25 },
@@ -35,13 +35,20 @@ return {
                 spacing = 3,
                 align = "left",
             },
-            ignore_missing = true,
-            hidden = { "<silent>", "<cmd>", "<Cmd>", "<CR>", "call", "lua", "^:", "^ " },
-            show_help = true,
-            show_keys = true,
-            triggers = "auto",
-            timeout = 1000,
-            delay = 0,
+            filter = function(mapping)
+                -- Filter out mappings that should be hidden
+                return not vim.tbl_contains({ "<silent>", "<cmd>", "<Cmd>", "<CR>", "call", "lua", "^:", "^ " }, mapping.desc)
+            end,
+            show = {
+                help = true,
+                keys = true,
+            },
+            triggers = {
+                { "<auto>", mode = "nxso" },
+            },
+            defer = function(ctx)
+                return ctx.mode == "v" or ctx.mode == "V"
+            end,
         })
 
         -- Define key mappings with descriptions
@@ -77,7 +84,7 @@ return {
             
             -- Tab management
             { "<leader>t", group = "Tabs/Tests" },
-            { "<leader>to", desc = "Open Tab" },
+            { "<leader>tO", desc = "Open Tab" },
             { "<leader>tx", desc = "Close Tab" },
             { "<leader>tn", desc = "Next Tab" },
             { "<leader>tp", desc = "Previous Tab" },
@@ -89,7 +96,7 @@ return {
             { "<leader>ts", desc = "Stop Test" },
             { "<leader>ta", desc = "Attach Test" },
             { "<leader>to", desc = "Test Output" },
-            { "<leader>tO", desc = "Test Output Panel" },
+            { "<leader>tP", desc = "Test Output Panel" },
             { "<leader>tt", desc = "Test Summary" },
             { "<leader>tw", desc = "Watch Tests" },
             
@@ -103,7 +110,7 @@ return {
             { "<leader>dh", desc = "Debug Hover" },
             { "<leader>dp", desc = "Debug Preview" },
             { "<leader>df", desc = "Debug Frames" },
-            { "<leader>ds", desc = "Debug Scopes" },
+            { "<leader>dS", desc = "Debug Scopes" },
             { "<leader>dc", group = "Debug Commands" },
             { "<leader>dcc", desc = "Commands" },
             { "<leader>dco", desc = "Configurations" },
@@ -118,7 +125,6 @@ return {
             { "<leader>th", desc = "Toggle Inlay Hints" },
             
             -- Document symbols
-            { "<leader>ds", desc = "Document Symbols" },
             { "<leader>ws", desc = "Workspace Symbols" },
             
             -- Misc

@@ -2,17 +2,22 @@ return {
 	"neovim/nvim-lspconfig",
 	dependencies = {
 		-- Automatically install LSPs and related tools to stdpath for Neovim
-		{ "mason-org/mason.nvim", config = true }, -- NOTE: Must be loaded before dependants
+		{ "mason-org/mason.nvim", commit = "4da89f3", config = true }, -- NOTE: Must be loaded before dependants
 		-- mason-lspconfig:
 		-- - Bridges the gap between LSP config names (e.g. "lua_ls") and actual Mason package names (e.g. "lua-language-server").
 		-- - Used here only to allow specifying language servers by their LSP name (like "lua_ls") in `ensure_installed`.
 		-- - It does not auto-configure servers — we use vim.lsp.config() + vim.lsp.enable() explicitly for full control.
-		"mason-org/mason-lspconfig.nvim",
-		-- mason-tool-installer:
-		-- - Installs LSPs, linters, formatters, etc. by their Mason package name.
-		-- - We use it to ensure all desired tools are present.
-		-- - The `ensure_installed` list works with mason-lspconfig to resolve LSP names like "lua_ls".
-		"WhoIsSethDaniel/mason-tool-installer.nvim",
+		{ 
+			"mason-org/mason-lspconfig.nvim", 
+			commit = "1a31f82",
+			opts = function()
+				local servers = {
+					"ts_ls", "ruff", "pylsp", "html", "cssls", "tailwindcss", 
+					"dockerls", "sqlls", "terraformls", "jsonls", "yamlls", "gopls", "lua_ls"
+				}
+				return { ensure_installed = servers }
+			end,
+		},
 
 		-- Useful status updates for LSP.
 		{
@@ -180,12 +185,7 @@ return {
 			},
 		}
 
-		-- Ensure the servers and tools above are installed
-		local ensure_installed = vim.tbl_keys(servers or {})
-		vim.list_extend(ensure_installed, {
-			"stylua", -- Used to format Lua code
-		})
-		require("mason-tool-installer").setup({ ensure_installed = ensure_installed })
+		-- mason-lspconfig handles server installation via opts.ensure_installed above
 
 		for server, cfg in pairs(servers) do
 			-- For each LSP server (cfg), we merge:
