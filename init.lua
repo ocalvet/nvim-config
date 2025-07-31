@@ -33,4 +33,5 @@ require("lazy").setup({
 	require("plugins.which-key"),
 	require("plugins.surround"),
 	require("plugins.diffview"),
+	require("plugins.neogit"),
 })
