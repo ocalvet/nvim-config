@@ -666,7 +666,7 @@ return {
         vim.keymap.set("n", "<leader>gH", "<cmd>DiffviewFileHistory %<CR>", opts)
         
         -- Close diffview
-        vim.keymap.set("n", "<leader>gc", "<cmd>DiffviewClose<CR>", opts)
+        vim.keymap.set("n", "<leader>gx", "<cmd>DiffviewClose<CR>", opts)
         
         -- Refresh diffview
         vim.keymap.set("n", "<leader>gr", "<cmd>DiffviewRefresh<CR>", opts)

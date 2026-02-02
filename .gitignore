@@ -1,0 +1,57 @@
+# Neovim generated files
+*.swp
+*.swo
+*~
+
+# Neovim session files
+Session.vim
+session.vim
+.session.vim
+
+# Neovim shada (shared data)
+shada/
+
+# Plugin data (managed by lazy.nvim in ~/.local/share/nvim)
+plugin/
+
+# Treesitter parsers (auto-installed per user)
+parser/
+parser-info/
+
+# Spell files (downloaded automatically)
+spell/*.spl
+spell/*.sug
+spell/en.utf-8.add
+
+# Local/personal configuration (if any)
+lua/local.lua
+lua/local/
+
+# OS generated files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+Thumbs.db
+ehthumbs.db
+
+# IDE/Editor specific
+.idea/
+.vscode/
+*.sublime-*
+
+# Backup files
+*.bak
+*.backup
+
+# Log files
+*.log
+
+# Temporary files
+tmp/
+temp/
+
+# Git files (not needed in copied configs)
+.git/
+.gitmodules
