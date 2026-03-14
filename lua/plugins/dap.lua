@@ -7,6 +7,14 @@ return {
     "mfussenegger/nvim-dap-python",
     "leoluz/nvim-dap-go",
     "nvim-telescope/telescope-dap.nvim",
+    {
+      "jay-babu/mason-nvim-dap.nvim",
+      dependencies = { "mason-org/mason.nvim" },
+      opts = {
+        ensure_installed = { "delve", "debugpy", "js-debug-adapter" },
+        automatic_installation = true,
+      },
+    },
   },
   config = function()
     local dap = require("dap")
@@ -61,41 +69,66 @@ return {
     })
 
     -- Python DAP setup
-    require("dap-python").setup("python")
+    require("dap-python").setup(vim.fn.stdpath("data") .. "/mason/packages/debugpy/venv/bin/python")
     require("dap-python").test_runner = "pytest"
 
     -- Go DAP setup
     require("dap-go").setup()
 
-    -- JavaScript/TypeScript DAP setup
-    dap.adapters.node2 = {
-      type = "executable",
-      command = "node",
-      args = { vim.fn.stdpath("data") .. "/mason/packages/node-debug2-adapter/out/src/nodeDebug.js" },
-    }
+    -- JavaScript/TypeScript/React DAP setup (js-debug-adapter)
+    local js_debug_path = vim.fn.stdpath("data") .. "/mason/packages/js-debug-adapter/js-debug/src/dapDebugServer.js"
 
-    dap.configurations.javascript = {
+    for _, adapter in ipairs({ "pwa-node", "pwa-chrome" }) do
+      dap.adapters[adapter] = {
+        type = "server",
+        host = "localhost",
+        port = "${port}",
+        executable = {
+          command = "node",
+          args = { js_debug_path, "${port}" },
+        },
+      }
+    end
+
+    local js_configs = {
       {
-        name = "Launch",
-        type = "node2",
+        type = "pwa-node",
         request = "launch",
+        name = "Node: Launch file",
         program = "${file}",
-        cwd = vim.fn.getcwd(),
+        cwd = "${workspaceFolder}",
         sourceMaps = true,
-        protocol = "inspector",
-        console = "integratedTerminal",
       },
       {
-        name = "Attach to process",
-        type = "node2",
+        type = "pwa-node",
+        request = "launch",
+        name = "Node: Launch via npm",
+        runtimeExecutable = "npm",
+        runtimeArgs = { "run", "dev" },
+        cwd = "${workspaceFolder}",
+        sourceMaps = true,
+      },
+      {
+        type = "pwa-node",
         request = "attach",
+        name = "Node: Attach to process",
         processId = require("dap.utils").pick_process,
+        cwd = "${workspaceFolder}",
+        sourceMaps = true,
+      },
+      {
+        type = "pwa-chrome",
+        request = "launch",
+        name = "Chrome: Launch (React/Frontend)",
+        url = "http://localhost:3000",
+        webRoot = "${workspaceFolder}",
+        sourceMaps = true,
       },
     }
 
-    dap.configurations.typescript = dap.configurations.javascript
-    dap.configurations.javascriptreact = dap.configurations.javascript
-    dap.configurations.typescriptreact = dap.configurations.javascript
+    for _, ft in ipairs({ "javascript", "typescript", "javascriptreact", "typescriptreact" }) do
+      dap.configurations[ft] = js_configs
+    end
 
     -- Auto open/close DAP UI
     dap.listeners.after.event_initialized["dapui_config"] = function() dapui.open() end
