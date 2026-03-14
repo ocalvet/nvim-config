@@ -32,7 +32,7 @@ vim.keymap.set("n", "<Right>", ":vertical resize +2<CR>", { desc = "Increase wid
 -- Buffer navigation
 vim.keymap.set("n", "<Tab>", ":bnext<CR>", { desc = "Next buffer" })
 vim.keymap.set("n", "<S-Tab>", ":bprevious<CR>", { desc = "Previous buffer" })
-vim.keymap.set("n", "<leader>x", ":bdelete<CR>", { desc = "Close buffer" })
+vim.keymap.set("n", "<leader>bd", "<cmd>Bdelete<CR>", { desc = "Close buffer" })
 vim.keymap.set("n", "<leader>b", "<cmd>enew<CR>", { desc = "New buffer" })
 
 -- Window management
@@ -47,11 +47,11 @@ vim.keymap.set("n", "<C-j>", ":wincmd j<CR>", { desc = "Go to lower window" })
 vim.keymap.set("n", "<C-h>", ":wincmd h<CR>", { desc = "Go to left window" })
 vim.keymap.set("n", "<C-l>", ":wincmd l<CR>", { desc = "Go to right window" })
 
--- Tab management
-vim.keymap.set("n", "<leader>to", ":tabnew<CR>", { desc = "New tab" })
-vim.keymap.set("n", "<leader>tx", ":tabclose<CR>", { desc = "Close tab" })
-vim.keymap.set("n", "<leader>tn", ":tabn<CR>", { desc = "Next tab" })
-vim.keymap.set("n", "<leader>tp", ":tabp<CR>", { desc = "Previous tab" })
+-- Tab management (uppercase T prefix to avoid conflict with <leader>t = Tests)
+vim.keymap.set("n", "<leader>To", ":tabnew<CR>", { desc = "New tab" })
+vim.keymap.set("n", "<leader>Tx", ":tabclose<CR>", { desc = "Close tab" })
+vim.keymap.set("n", "<leader>Tn", ":tabn<CR>", { desc = "Next tab" })
+vim.keymap.set("n", "<leader>Tp", ":tabp<CR>", { desc = "Previous tab" })
 
 -- Toggle line wrapping
 vim.keymap.set("n", "<leader>lw", "<cmd>set wrap!<CR>", { desc = "Toggle line wrap" })

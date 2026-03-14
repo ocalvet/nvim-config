@@ -137,7 +137,7 @@ return {
       local widgets = require("dap.ui.widgets")
       widgets.centered_float(widgets.frames)
     end, { desc = "Debug frames" })
-    vim.keymap.set("n", "<leader>ds", function()
+    vim.keymap.set("n", "<leader>dS", function()
       local widgets = require("dap.ui.widgets")
       widgets.centered_float(widgets.scopes)
     end, { desc = "Debug scopes" })

@@ -10,7 +10,7 @@ vim.o.clipboard = "unnamedplus"
 
 -- Display
 vim.o.wrap = false
-vim.o.linebreak = true
+vim.o.breakindent = true  -- wrapped lines preserve indentation (used when wrap toggled on)
 vim.o.termguicolors = true
 vim.o.signcolumn = "yes"
 vim.o.cursorline = true
@@ -33,6 +33,7 @@ vim.o.expandtab = true
 vim.o.ignorecase = true
 vim.o.smartcase = true
 vim.o.hlsearch = true
+vim.o.inccommand = "split"  -- live preview of :s substitutions in a split
 
 -- Splits
 vim.o.splitright = true

@@ -57,7 +57,7 @@ return {
       { "<leader>s", group = "Search" },
       { "<leader>sf", desc = "Find Files" },
       { "<leader>sg", desc = "Live Grep" },
-      { "<leader>sb", desc = "Find Buffers" },
+      { "<leader><leader>", desc = "Find Buffers" },
       { "<leader>sh", desc = "Help Tags" },
       { "<leader>sw", desc = "Search Word" },
       { "<leader>sd", desc = "Diagnostics" },
@@ -74,6 +74,7 @@ return {
 
       -- Buffer operations
       { "<leader>b", desc = "New Buffer" },
+      { "<leader>bd", desc = "Close Buffer" },
 
       -- Window management
       { "<leader>w", group = "Window" },
@@ -118,11 +119,14 @@ return {
       { "<leader>xr", desc = "LSP References" },
 
       -- Tab management
-      { "<leader>t", group = "Tabs/Tests" },
-      { "<leader>tO", desc = "Open Tab" },
-      { "<leader>tx", desc = "Close Tab" },
-      { "<leader>tn", desc = "Next Tab" },
-      { "<leader>tp", desc = "Previous Tab" },
+      { "<leader>T", group = "Tabs" },
+      { "<leader>To", desc = "New Tab" },
+      { "<leader>Tx", desc = "Close Tab" },
+      { "<leader>Tn", desc = "Next Tab" },
+      { "<leader>Tp", desc = "Previous Tab" },
+
+      -- Tests
+      { "<leader>t", group = "Tests" },
 
       -- Testing
       { "<leader>tr", desc = "Run Test" },
@@ -131,7 +135,7 @@ return {
       { "<leader>ts", desc = "Stop Test" },
       { "<leader>ta", desc = "Attach Test" },
       { "<leader>to", desc = "Test Output" },
-      { "<leader>tP", desc = "Test Output Panel" },
+      { "<leader>tO", desc = "Toggle Output Panel" },
       { "<leader>tt", desc = "Test Summary" },
       { "<leader>tw", desc = "Watch Tests" },
 
@@ -145,7 +149,7 @@ return {
       { "<leader>dh", desc = "Debug Hover" },
       { "<leader>dp", desc = "Debug Preview" },
       { "<leader>df", desc = "Debug Frames" },
-      { "<leader>dS", desc = "Debug Scopes" },
+      { "<leader>dS", desc = "Debug Scopes" },  -- was incorrectly <leader>ds (conflict with LSP doc symbols)
       { "<leader>dc", group = "Debug Commands" },
       { "<leader>dcc", desc = "Commands" },
       { "<leader>dco", desc = "Configurations" },
@@ -159,7 +163,8 @@ return {
       { "<leader>q", desc = "Diagnostics List" },
       { "<leader>th", desc = "Toggle Inlay Hints" },
 
-      -- LSP symbols
+      -- LSP symbols (uses <leader>fws as set in lsp.lua)
+      { "<leader>f", group = "Find" },
       { "<leader>fws", desc = "Workspace Symbols" },
 
       -- Misc

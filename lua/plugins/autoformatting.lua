@@ -16,6 +16,8 @@ return {
         "eslint_d",
         "shfmt",
         "checkmake",
+        "stylua",
+        "terraform_fmt",
       },
       automatic_installation = true,
     })
@@ -55,7 +57,14 @@ return {
             group = augroup,
             buffer = bufnr,
             callback = function()
-              vim.lsp.buf.format({ async = false })
+              -- Filter to null-ls only to avoid double-formatting when an LSP
+              -- server (e.g. ts_ls) also provides formatting
+              vim.lsp.buf.format({
+                async = false,
+                filter = function(c)
+                  return c.name == "null-ls"
+                end,
+              })
             end,
           })
         end

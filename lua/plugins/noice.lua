@@ -5,11 +5,17 @@ return {
     "MunifTanjim/nui.nvim",
     {
       "rcarriga/nvim-notify",
-      opts = {
-        background_colour = "#2E3440",
-        timeout = 3000,
-        max_width = 50,
-      },
+      opts = function()
+        -- Derive background from the active colorscheme so this stays correct
+        -- if the theme changes. Falls back to a dark neutral if unset (transparent bg).
+        local normal_bg = vim.api.nvim_get_hl(0, { name = "Normal" }).bg
+        local bg = normal_bg and string.format("#%06x", normal_bg) or "#1e1e2e"
+        return {
+          background_colour = bg,
+          timeout = 3000,
+          max_width = 50,
+        }
+      end,
     },
   },
   opts = {

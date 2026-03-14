@@ -50,8 +50,7 @@ return {
       group = vim.api.nvim_create_augroup("kickstart-lsp-attach", { clear = true }),
       callback = function(event)
         local map = function(keys, func, desc, mode)
-          mode = mode or "n"
-          vim.keymap.set(mode, keys, func, { buffer = event.buf, desc = "LSP: " .. desc })
+          vim.keymap.set(mode or "n", keys, func, { buffer = event.buf, desc = "LSP: " .. desc })
         end
 
         -- Navigation
@@ -134,10 +133,9 @@ return {
           Lua = {
             completion = { callSnippet = "Replace" },
             runtime = { version = "LuaJIT" },
-            workspace = {
-              checkThirdParty = false,
-              library = vim.api.nvim_get_runtime_file("", true),
-            },
+            -- workspace.library omitted: lazydev.nvim handles Neovim API types
+            -- dynamically and more efficiently
+            workspace = { checkThirdParty = false },
             diagnostics = {
               globals = { "vim" },
               disable = { "missing-fields" },
