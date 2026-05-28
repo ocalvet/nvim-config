@@ -23,6 +23,7 @@ return {
         },
       },
       win = {
+        no_overlap = false,
         border = "rounded",
         padding = { 2, 2, 2, 2 },
         wo = {
