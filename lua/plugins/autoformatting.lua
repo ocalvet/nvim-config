@@ -19,6 +19,7 @@ return {
         "stylua",
         "goimports",
         "terraform_fmt",
+        "clang_format",
       },
       automatic_installation = true,
     })
@@ -37,6 +38,10 @@ return {
       formatting.goimports,
       formatting.shfmt.with({ args = { "-i", "2" } }),
       formatting.terraform_fmt,
+      formatting.clang_format.with({
+        filetypes = { "c", "cpp", "cuda" },
+        extra_args = { "--style=file", "--fallback-style=llvm" },
+      }),
       require("none-ls.formatting.ruff").with({ extra_args = { "--extend-select", "I" } }),
       require("none-ls.formatting.ruff_format"),
       require("none-ls.diagnostics.eslint_d").with({

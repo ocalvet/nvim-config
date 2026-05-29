@@ -21,6 +21,10 @@ return {
 			"yaml",
 			"markdown",
 			"go",
+			"c",
+			"cpp",
+			"cuda",
+			"cmake",
 		}
 
 		-- Install parsers in the background (non-blocking)

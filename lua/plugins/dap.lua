@@ -75,6 +75,39 @@ return {
     -- Go DAP setup
     require("dap-go").setup()
 
+    -- CUDA DAP setup (cuda-gdb)
+    dap.adapters.cuda_gdb = {
+      type = "executable",
+      command = "/opt/cuda/bin/cuda-gdb",
+      args = { "--interpreter=mi2" },
+    }
+
+    dap.configurations.cuda = {
+      {
+        name = "CUDA: Launch",
+        type = "cuda_gdb",
+        request = "launch",
+        program = function()
+          return vim.fn.input("Path to executable: ", vim.fn.getcwd() .. "/", "file")
+        end,
+        cwd = "${workspaceFolder}",
+        stopAtBeginningOfMainSubprogram = false,
+      },
+      {
+        name = "CUDA: Launch (break on kernel)",
+        type = "cuda_gdb",
+        request = "launch",
+        program = function()
+          return vim.fn.input("Path to executable: ", vim.fn.getcwd() .. "/", "file")
+        end,
+        cwd = "${workspaceFolder}",
+        stopAtBeginningOfMainSubprogram = false,
+        setupCommands = {
+          { text = "set cuda break_on_launch application" },
+        },
+      },
+    }
+
     -- JavaScript/TypeScript/React DAP setup (js-debug-adapter)
     local js_debug_path = vim.fn.stdpath("data") .. "/mason/packages/js-debug-adapter/js-debug/src/dapDebugServer.js"
 

@@ -10,6 +10,7 @@ return {
         ensure_installed = {
           "ts_ls", "pyright", "html", "cssls", "tailwindcss",
           "dockerls", "sqlls", "terraformls", "jsonls", "yamlls", "gopls", "lua_ls",
+          "clangd", "neocmake",
         },
       },
     },
@@ -128,6 +129,31 @@ return {
       jsonls = {},
       yamlls = {},
       gopls = {},
+      clangd = {
+        cmd = {
+          "clangd",
+          "--background-index",
+          "--clang-tidy",
+          "--header-insertion=iwyu",
+          "--completion-style=detailed",
+          "--function-arg-placeholders",
+          "--fallback-style=llvm",
+        },
+        filetypes = { "c", "cpp", "objc", "objcpp", "cuda", "proto" },
+        init_options = {
+          fallbackFlags = {
+            "-std=c++17",
+            "--cuda-gpu-arch=sm_100",
+            "--cuda-path=/opt/cuda",
+          },
+        },
+        on_attach = function(client)
+          -- Disable clangd formatting; clang-format via none-ls handles it
+          client.server_capabilities.documentFormattingProvider = false
+          client.server_capabilities.documentRangeFormattingProvider = false
+        end,
+      },
+      neocmake = {},
       lua_ls = {
         settings = {
           Lua = {
