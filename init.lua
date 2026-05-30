@@ -26,6 +26,7 @@ require("lazy").setup({
   require("plugins.neotree"),
   require("plugins.telescope"),
   require("plugins.flash"),
+  require("plugins.grug-far"),
 
   -- LSP & Completion
   require("plugins.lsp"),
@@ -45,6 +46,10 @@ require("lazy").setup({
   -- Debugging & Testing
   require("plugins.dap"),
   require("plugins.testing"),
+
+  -- Architecture & Documentation
+  require("plugins.aerial"),
+  require("plugins.render-markdown"),
 
   -- Editing Enhancements
   require("plugins.auto-tags"),

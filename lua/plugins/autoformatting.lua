@@ -1,16 +1,97 @@
 return {
-  "nvimtools/none-ls.nvim",
-  dependencies = {
-    "nvimtools/none-ls-extras.nvim",
-    "jayp0521/mason-null-ls.nvim",
+  {
+    -- Fast, async formatter — replaces none-ls for all formatting needs
+    "stevearc/conform.nvim",
+    event = { "BufWritePre" },
+    cmd = { "ConformInfo" },
+    keys = {
+      {
+        "<leader>cf",
+        function()
+          require("conform").format({ async = true, lsp_fallback = true })
+        end,
+        mode = { "n", "v" },
+        desc = "Format buffer",
+      },
+    },
+    opts = {
+      formatters_by_ft = {
+        lua = { "stylua" },
+        python = { "ruff_fix", "ruff_format" },
+        javascript = { "prettier" },
+        javascriptreact = { "prettier" },
+        typescript = { "prettier" },
+        typescriptreact = { "prettier" },
+        css = { "prettier" },
+        scss = { "prettier" },
+        less = { "prettier" },
+        html = { "prettier" },
+        json = { "prettier" },
+        yaml = { "prettier" },
+        markdown = { "prettier" },
+        go = { "goimports" },
+        sh = { "shfmt" },
+        bash = { "shfmt" },
+        terraform = { "terraform_fmt" },
+        c = { "clang_format" },
+        cpp = { "clang_format" },
+        cuda = { "clang_format" },
+      },
+      formatters = {
+        shfmt = { prepend_args = { "-i", "2" } },
+        clang_format = { prepend_args = { "--style=file", "--fallback-style=llvm" } },
+      },
+      format_on_save = {
+        timeout_ms = 1000,
+        lsp_fallback = true,
+      },
+    },
   },
-  config = function()
-    local null_ls = require("null-ls")
-    local formatting = null_ls.builtins.formatting
-    local diagnostics = null_ls.builtins.diagnostics
+  {
+    -- Async linter — replaces none-ls diagnostics
+    "mfussenegger/nvim-lint",
+    event = { "BufReadPost", "BufWritePost", "BufNewFile" },
+    config = function()
+      local lint = require("lint")
 
-    -- Formatters & linters for mason to install
-    require("mason-null-ls").setup({
+      lint.linters_by_ft = {
+        javascript = { "eslint_d" },
+        javascriptreact = { "eslint_d" },
+        typescript = { "eslint_d" },
+        typescriptreact = { "eslint_d" },
+        make = { "checkmake" },
+      }
+
+      -- Only run eslint_d when a config file exists in the project root
+      local eslint = lint.linters.eslint_d
+      local original_condition = eslint.condition
+      eslint.condition = function(ctx)
+        local eslint_configs = {
+          ".eslintrc.js", ".eslintrc.json", ".eslintrc.yaml",
+          ".eslintrc.yml", ".eslintrc", "eslint.config.js",
+        }
+        for _, f in ipairs(eslint_configs) do
+          if vim.uv.fs_stat(ctx.dirname .. "/" .. f) then
+            return true
+          end
+        end
+        return false
+      end
+
+      -- Trigger linting after writes and when leaving insert mode
+      vim.api.nvim_create_autocmd({ "BufWritePost", "BufReadPost", "InsertLeave" }, {
+        group = vim.api.nvim_create_augroup("nvim-lint", { clear = true }),
+        callback = function()
+          lint.try_lint()
+        end,
+      })
+    end,
+  },
+  {
+    -- Mason integration: ensure formatters/linters are installed
+    "WhoIsSethDaniel/mason-tool-installer.nvim",
+    dependencies = { "mason-org/mason.nvim" },
+    opts = {
       ensure_installed = {
         "prettier",
         "eslint_d",
@@ -18,64 +99,11 @@ return {
         "checkmake",
         "stylua",
         "goimports",
-        "terraform_fmt",
-        "clang_format",
+        "clang-format",
+        "ruff",
       },
-      automatic_installation = true,
-    })
-
-    local sources = {
-      diagnostics.checkmake,
-      formatting.prettier.with({
-        filetypes = {
-          "html", "json", "yaml", "markdown",
-          "javascript", "javascriptreact",
-          "typescript", "typescriptreact",
-          "css", "scss", "less",
-        },
-      }),
-      formatting.stylua,
-      formatting.goimports,
-      formatting.shfmt.with({ args = { "-i", "2" } }),
-      formatting.terraform_fmt,
-      formatting.clang_format.with({
-        filetypes = { "c", "cpp", "cuda" },
-        extra_args = { "--style=file", "--fallback-style=llvm" },
-      }),
-      require("none-ls.formatting.ruff").with({ extra_args = { "--extend-select", "I" } }),
-      require("none-ls.formatting.ruff_format"),
-      require("none-ls.diagnostics.eslint_d").with({
-        condition = function(utils)
-          return utils.root_has_file({
-            ".eslintrc.js", ".eslintrc.json", ".eslintrc.yaml",
-            ".eslintrc.yml", ".eslintrc", "eslint.config.js",
-          })
-        end,
-      }),
-    }
-
-    local augroup = vim.api.nvim_create_augroup("LspFormatting", {})
-    null_ls.setup({
-      sources = sources,
-      on_attach = function(client, bufnr)
-        if client:supports_method("textDocument/formatting") then
-          vim.api.nvim_clear_autocmds({ group = augroup, buffer = bufnr })
-          vim.api.nvim_create_autocmd("BufWritePre", {
-            group = augroup,
-            buffer = bufnr,
-            callback = function()
-              -- Filter to null-ls only to avoid double-formatting when an LSP
-              -- server (e.g. ts_ls) also provides formatting
-              vim.lsp.buf.format({
-                async = false,
-                filter = function(c)
-                  return c.name == "null-ls"
-                end,
-              })
-            end,
-          })
-        end
-      end,
-    })
-  end,
+      auto_update = false,
+      run_on_start = true,
+    },
+  },
 }
