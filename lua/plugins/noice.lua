@@ -70,7 +70,6 @@ return {
         inc_rename = false,
         lsp_doc_border = true,  -- border on hover docs looks better with snacks
       },
-      -- Route all vim.notify calls through snacks.notifier
       routes = {
         {
           -- Send large/multiline messages to a split instead of a popup
@@ -90,13 +89,6 @@ return {
     },
     config = function(_, opts)
       require("noice").setup(opts)
-
-      -- Route vim.notify through snacks so all notifications are multiline-aware
-      vim.notify = function(msg, level, o)
-        Snacks.notify(msg, vim.tbl_extend("force", o or {}, {
-          level = level,
-        }))
-      end
     end,
   },
 }

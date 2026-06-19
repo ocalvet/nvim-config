@@ -26,6 +26,7 @@ return {
         scss = { "prettier" },
         less = { "prettier" },
         html = { "prettier" },
+        xml = { "xmlformatter" },
         json = { "prettier" },
         yaml = { "prettier" },
         markdown = { "prettier" },
@@ -94,6 +95,7 @@ return {
     opts = {
       ensure_installed = {
         "prettier",
+        "xmlformatter",
         "eslint_d",
         "shfmt",
         "checkmake",
@@ -101,6 +103,10 @@ return {
         "goimports",
         "clang-format",
         "ruff",
+        "apex-language-server",
+        "lwc-language-server",
+        "visualforce-language-server",
+        "lemminx",
       },
       auto_update = false,
       run_on_start = true,

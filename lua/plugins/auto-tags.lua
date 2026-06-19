@@ -16,6 +16,7 @@ return {
         ["typescriptreact"] = { enable_close = true },
         ["vue"] = { enable_close = true },
         ["xml"] = { enable_close = true },
+        ["visualforce"] = { enable_close = true },
         ["php"] = { enable_close = true },
         ["markdown"] = { enable_close = true },
       },

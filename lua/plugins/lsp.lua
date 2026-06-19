@@ -10,7 +10,7 @@ return {
         ensure_installed = {
           "ts_ls", "pyright", "html", "cssls", "tailwindcss",
           "dockerls", "sqlls", "terraformls", "jsonls", "yamlls", "gopls", "lua_ls",
-          "clangd", "neocmake",
+          "clangd", "neocmake", "lemminx", "lwc_ls", "visualforce_ls",
         },
       },
     },
@@ -105,6 +105,8 @@ return {
     local capabilities = vim.lsp.protocol.make_client_capabilities()
     capabilities = vim.tbl_deep_extend("force", capabilities, require("cmp_nvim_lsp").default_capabilities())
 
+    local apex_jar_path = vim.fn.stdpath("data") .. "/mason/share/apex-language-server/apex-jorje-lsp.jar"
+
     -- Server configurations
     local servers = {
       ts_ls = {},
@@ -123,6 +125,11 @@ return {
       html = { filetypes = { "html", "twig", "hbs" } },
       cssls = {},
       tailwindcss = {},
+      lwc_ls = {},
+      visualforce_ls = {
+        cmd = { "visualforce-language-server", "--stdio" },
+      },
+      lemminx = {},
       dockerls = {},
       sqlls = {},
       terraformls = {},
@@ -171,6 +178,12 @@ return {
         },
       },
     }
+
+    if vim.uv.fs_stat(apex_jar_path) then
+      servers.apex_ls = {
+        apex_jar_path = apex_jar_path,
+      }
+    end
 
     -- Configure and enable all servers
     for server, cfg in pairs(servers) do
