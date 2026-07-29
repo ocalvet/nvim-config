@@ -8,7 +8,7 @@ return {
       "mason-org/mason-lspconfig.nvim",
       opts = {
         ensure_installed = {
-          "ts_ls", "basedpyright", "rust_analyzer", "html", "cssls", "tailwindcss",
+          "vtsls", "basedpyright", "rust_analyzer", "html", "cssls", "tailwindcss",
           "dockerls", "docker_compose_language_service", "sqlls", "terraformls", "jsonls", "yamlls",
           "gopls", "lua_ls", "clangd", "neocmake", "bashls", "taplo",
           "lemminx", "lwc_ls", "visualforce_ls",
@@ -55,13 +55,36 @@ return {
           vim.keymap.set(mode or "n", keys, func, { buffer = event.buf, desc = "LSP: " .. desc })
         end
 
+        local telescope_builtin = require("telescope.builtin")
+
+        local function buffer_supports_method(method)
+          for _, attached_client in ipairs(vim.lsp.get_clients({ bufnr = event.buf })) do
+            if attached_client:supports_method(method) then
+              return true
+            end
+          end
+
+          return false
+        end
+
         -- Navigation
-        map("gd", require("telescope.builtin").lsp_definitions, "Goto Definition")
-        map("gr", require("telescope.builtin").lsp_references, "Goto References")
-        map("gI", require("telescope.builtin").lsp_implementations, "Goto Implementation")
-        map("<leader>D", require("telescope.builtin").lsp_type_definitions, "Type Definition")
-        map("<leader>ds", require("telescope.builtin").lsp_document_symbols, "Document Symbols")
-        map("<leader>fws", require("telescope.builtin").lsp_dynamic_workspace_symbols, "Workspace Symbols")
+        map("gd", function()
+          if buffer_supports_method(vim.lsp.protocol.Methods.textDocument_definition) then
+            telescope_builtin.lsp_definitions()
+            return
+          end
+
+          vim.notify(
+            "No attached LSP for this buffer supports go-to-definition.",
+            vim.log.levels.WARN,
+            { title = "LSP" }
+          )
+        end, "Goto Definition")
+        map("gr", telescope_builtin.lsp_references, "Goto References")
+        map("gI", telescope_builtin.lsp_implementations, "Goto Implementation")
+        map("<leader>D", telescope_builtin.lsp_type_definitions, "Type Definition")
+        map("<leader>ds", telescope_builtin.lsp_document_symbols, "Document Symbols")
+        map("<leader>fws", telescope_builtin.lsp_dynamic_workspace_symbols, "Workspace Symbols")
 
         -- Actions
         map("<leader>rn", vim.lsp.buf.rename, "Rename")
@@ -109,7 +132,7 @@ return {
 
     -- Server configurations
     local servers = {
-      ts_ls = {},
+      vtsls = {},
       basedpyright = {
         settings = {
           basedpyright = {
