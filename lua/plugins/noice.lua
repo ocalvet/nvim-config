@@ -23,13 +23,13 @@ return {
           trace   = "✎ ",
         },
       },
-      -- disable every other snacks module explicitly
-      bigfile    = { enabled = false },
+      -- enable useful QoL modules without conflicts
+      bigfile    = { enabled = true },
       dashboard  = { enabled = false },
       indent     = { enabled = false },
-      input      = { enabled = false },
+      input      = { enabled = true },
       picker     = { enabled = false },
-      quickfile  = { enabled = false },
+      quickfile  = { enabled = true },
       scroll     = { enabled = false },
       statuscolumn = { enabled = false },
       words      = { enabled = false },

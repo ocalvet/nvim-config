@@ -347,13 +347,12 @@ Automatically closes `()`, `[]`, `{}`, `""`, `''`
 
 ## UI Features
 
-### Noice (Modern UI)
+### Snacks Notifier / Noice (Modern UI)
 
 | Keymap | Action |
 |--------|--------|
-| `<leader>nh` | Notification history |
-| `<leader>nl` | Last notification |
-| `<leader>nd` | Dismiss notifications |
+| `<leader>sN` | Notification history |
+| `<leader>un` | Dismiss all notifications |
 
 ### Which-Key
 

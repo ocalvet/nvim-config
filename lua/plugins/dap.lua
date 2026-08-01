@@ -11,7 +11,7 @@ return {
       "jay-babu/mason-nvim-dap.nvim",
       dependencies = { "mason-org/mason.nvim" },
       opts = {
-        ensure_installed = { "delve", "debugpy", "js-debug-adapter" },
+        ensure_installed = { "delve", "debugpy", "js-debug-adapter", "codelldb" },
         automatic_installation = true,
       },
     },
@@ -74,6 +74,30 @@ return {
 
     -- Go DAP setup
     require("dap-go").setup()
+
+    -- Rust DAP setup (codelldb)
+    local codelldb_path = vim.fn.stdpath("data") .. "/mason/packages/codelldb/extension/adapter/codelldb"
+    dap.adapters.codelldb = {
+      type = "server",
+      port = "${port}",
+      executable = {
+        command = codelldb_path,
+        args = { "--port", "${port}" },
+      },
+    }
+
+    dap.configurations.rust = {
+      {
+        name = "Rust: Launch",
+        type = "codelldb",
+        request = "launch",
+        program = function()
+          return vim.fn.input("Path to executable: ", vim.fn.getcwd() .. "/target/debug/", "file")
+        end,
+        cwd = "${workspaceFolder}",
+        stopOnEntry = false,
+      },
+    }
 
     -- CUDA DAP setup (cuda-gdb)
     dap.adapters.cuda_gdb = {

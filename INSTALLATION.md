@@ -242,7 +242,7 @@ source ~/.bashrc
 :Mason
 # Press 'i' on the server to install
 # Or run:
-:MasonInstall lua-language-server pyright
+:MasonInstall lua-language-server basedpyright
 ```
 
 ### Icons Not Showing

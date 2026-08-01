@@ -37,6 +37,8 @@ return {
         c = { "clang_format" },
         cpp = { "clang_format" },
         cuda = { "clang_format" },
+        rust = { "rustfmt" },
+        toml = { "taplo" },
       },
       formatters = {
         shfmt = { prepend_args = { "-i", "2" } },
@@ -61,15 +63,19 @@ return {
         typescript = { "eslint_d" },
         typescriptreact = { "eslint_d" },
         make = { "checkmake" },
+        sh = { "shellcheck" },
+        bash = { "shellcheck" },
+        dockerfile = { "hadolint" },
       }
 
       -- Only run eslint_d when a config file exists in the project root
       local eslint = lint.linters.eslint_d
-      local original_condition = eslint.condition
       eslint.condition = function(ctx)
         local eslint_configs = {
           ".eslintrc.js", ".eslintrc.json", ".eslintrc.yaml",
-          ".eslintrc.yml", ".eslintrc", "eslint.config.js",
+          ".eslintrc.yml", ".eslintrc", ".eslintrc.cjs",
+          "eslint.config.js", "eslint.config.mjs", "eslint.config.cjs",
+          "eslint.config.ts",
         }
         for _, f in ipairs(eslint_configs) do
           if vim.uv.fs_stat(ctx.dirname .. "/" .. f) then
@@ -103,13 +109,24 @@ return {
         "goimports",
         "clang-format",
         "ruff",
+        "ruff",
+        "taplo",
+        "shellcheck",
+        "hadolint",
         "apex-language-server",
         "lwc-language-server",
         "visualforce-language-server",
         "lemminx",
       },
       auto_update = false,
-      run_on_start = true,
+      run_on_start = false,
+      run_is_silent = true,
     },
+    config = function(_, opts)
+      require("mason-tool-installer").setup(opts)
+      vim.defer_fn(function()
+        vim.cmd("MasonToolsInstall")
+      end, 3000)
+    end,
   },
 }

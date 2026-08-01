@@ -1,6 +1,10 @@
 -- Suppress deprecation warnings (from plugins using old APIs)
 vim.g.deprecation_warnings = false
 
+-- Nerd Font is installed (JetBrains Mono Nerd via install.sh or manually)
+-- Enables icons in telescope, lualine, bufferline, etc.
+vim.g.have_nerd_font = true
+
 -- Line numbers
 vim.wo.number = true
 vim.o.relativenumber = true

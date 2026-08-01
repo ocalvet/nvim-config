@@ -15,48 +15,7 @@ local rtp = vim.opt.rtp
 rtp:prepend(lazypath)
 
 require("lazy").setup({
-  -- UI & Appearance
-  require("plugins.colortheme"),
-  require("plugins.alpha"),
-  require("plugins.bufferline"),
-  require("plugins.lualine"),
-  require("plugins.indent-blankline"),
-  require("plugins.noice"),
-
-  -- File Navigation
-  require("plugins.neotree"),
-  require("plugins.telescope"),
-  require("plugins.flash"),
-  require("plugins.grug-far"),
-
-  -- LSP & Completion
-  require("plugins.lsp"),
-  require("plugins.autocompletion"),
-  require("plugins.autoformatting"),
-  require("plugins.lazydev"),
-  require("plugins.trouble"),
-
-  -- Treesitter
-  require("plugins.treesitter"),
-
-  -- Git Integration
-  require("plugins.gitsigns"),
-  require("plugins.diffview"),
-  require("plugins.neogit"),
-
-  -- Debugging & Testing
-  require("plugins.dap"),
-  require("plugins.testing"),
-
-  -- Architecture & Documentation
-  require("plugins.aerial"),
-  require("plugins.render-markdown"),
-
-  -- Editing Enhancements
-  require("plugins.auto-tags"),
-  require("plugins.surround"),
-  require("plugins.which-key"),
-  require("plugins.misc"),
+  { import = "plugins" },
 }, {
   -- Disable luarocks (not needed, avoids hererocks warnings)
   rocks = {

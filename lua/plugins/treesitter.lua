@@ -21,6 +21,8 @@ return {
 			"yaml",
 			"xml",
 			"markdown",
+			"markdown",
+			"markdown_inline",
 			"apex",
 			"soql",
 			"sosl",
@@ -30,6 +32,11 @@ return {
 			"cpp",
 			"cuda",
 			"cmake",
+			"rust",
+			"toml",
+			"dockerfile",
+			"hcl",
+			"terraform",
 		}
 
 		-- Install parsers in the background (non-blocking)

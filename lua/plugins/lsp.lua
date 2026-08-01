@@ -8,9 +8,10 @@ return {
       "mason-org/mason-lspconfig.nvim",
       opts = {
         ensure_installed = {
-          "ts_ls", "pyright", "html", "cssls", "tailwindcss",
-          "dockerls", "sqlls", "terraformls", "jsonls", "yamlls", "gopls", "lua_ls",
-          "clangd", "neocmake", "lemminx", "lwc_ls", "visualforce_ls",
+          "ts_ls", "basedpyright", "rust_analyzer", "html", "cssls", "tailwindcss",
+          "dockerls", "docker_compose", "sqlls", "terraformls", "jsonls", "yamlls",
+          "gopls", "lua_ls", "clangd", "neocmake", "bashls", "taplo",
+          "lemminx", "lwc_ls", "visualforce_ls",
         },
       },
     },
@@ -101,18 +102,17 @@ return {
       end,
     })
 
-    -- Create capabilities with nvim-cmp support
-    local capabilities = vim.lsp.protocol.make_client_capabilities()
-    capabilities = vim.tbl_deep_extend("force", capabilities, require("cmp_nvim_lsp").default_capabilities())
+    -- Create capabilities (blink.cmp provides the merged LSP capabilities)
+    local capabilities = require("blink.cmp").get_lsp_capabilities()
 
     local apex_jar_path = vim.fn.stdpath("data") .. "/mason/share/apex-language-server/apex-jorje-lsp.jar"
 
     -- Server configurations
     local servers = {
       ts_ls = {},
-      pyright = {
+      basedpyright = {
         settings = {
-          python = {
+          basedpyright = {
             analysis = {
               typeCheckingMode = "basic",
               autoSearchPaths = true,
@@ -122,6 +122,17 @@ return {
           },
         },
       },
+      rust_analyzer = {
+        settings = {
+          ["rust-analyzer"] = {
+            check = { command = "clippy" },
+            cargo = { allFeatures = true },
+          },
+        },
+      },
+      bashls = {},
+      taplo = {},
+      docker_compose = {},
       html = { filetypes = { "html", "twig", "hbs" } },
       cssls = {},
       tailwindcss = {},

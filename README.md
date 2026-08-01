@@ -113,8 +113,8 @@ bob use nightly
 - **LSP Support** - Language servers with Mason auto-installation
 - **Fuzzy Finding** - Telescope for files, grep, and navigation
 - **Syntax Highlighting** - Treesitter with auto-install on file open
-- **Autocompletion** - nvim-cmp with snippets and LSP integration
-- **Auto-formatting** - Format on save with none-ls
+- **Autocompletion** - blink.cmp with snippets and LSP integration
+- **Auto-formatting** - Format on save with conform.nvim + nvim-lint
 
 ### Development Tools
 
@@ -127,11 +127,12 @@ bob use nightly
 
 Out-of-the-box LSP and tooling for:
 - **Lua** - lua_ls with Neovim API support
-- **Python** - pyright + ruff
+- **Python** - basedpyright + ruff
 - **JavaScript/TypeScript** - ts_ls + prettier + eslint
 - **Go** - gopls
 - **Web** - HTML, CSS, Tailwind CSS
-- **DevOps** - Docker, Terraform, YAML, JSON, SQL
+- **DevOps** - Docker, Docker Compose, Terraform, YAML, JSON, SQL, Bash, TOML
+- **Rust** - rust_analyzer + rustfmt
 
 ## Documentation
 
@@ -184,7 +185,7 @@ Edit `lua/plugins/lsp.lua` and add to the `ensure_installed` list:
 
 ```lua
 ensure_installed = {
-  "ts_ls", "pyright", "rust_analyzer",  -- Add your server
+  "ts_ls", "basedpyright", "rust_analyzer",  -- Add your server
 },
 ```
 
@@ -195,7 +196,7 @@ servers = {
   rust_analyzer = {
     settings = {
       ["rust-analyzer"] = {
-        checkOnSave = { command = "clippy" },
+        check = { command = "clippy" },
       },
     },
   },
