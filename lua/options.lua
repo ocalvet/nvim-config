@@ -1,6 +1,21 @@
 -- Suppress deprecation warnings (from plugins using old APIs)
 vim.g.deprecation_warnings = false
 
+-- Swallow nvim-treesitter install/download progress messages.
+-- These bypass noice and use direct nvim_echo, which causes the
+-- "Press ENTER or type command to continue" prompt on the alpha dashboard
+-- while parsers are being downloaded in the background.
+local orig_echo = vim.api.nvim_echo
+vim.api.nvim_echo = function(chunks, history, opts)
+  for _, chunk in ipairs(chunks or {}) do
+    local text = chunk[1]
+    if type(text) == "string" and text:match("%[nvim%-treesitter/install") then
+      return
+    end
+  end
+  return orig_echo(chunks, history, opts)
+end
+
 -- Nerd Font is installed (JetBrains Mono Nerd via install.sh or manually)
 -- Enables icons in telescope, lualine, bufferline, etc.
 vim.g.have_nerd_font = true

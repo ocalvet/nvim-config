@@ -9,7 +9,7 @@ return {
       opts = {
         ensure_installed = {
           "ts_ls", "basedpyright", "rust_analyzer", "html", "cssls", "tailwindcss",
-          "dockerls", "docker_compose", "sqlls", "terraformls", "jsonls", "yamlls",
+          "dockerls", "docker_compose_language_service", "sqlls", "terraformls", "jsonls", "yamlls",
           "gopls", "lua_ls", "clangd", "neocmake", "bashls", "taplo",
           "lemminx", "lwc_ls", "visualforce_ls",
         },
@@ -132,7 +132,7 @@ return {
       },
       bashls = {},
       taplo = {},
-      docker_compose = {},
+      docker_compose_language_service = {},
       html = { filetypes = { "html", "twig", "hbs" } },
       cssls = {},
       tailwindcss = {},

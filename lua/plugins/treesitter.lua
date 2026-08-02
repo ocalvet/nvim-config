@@ -7,7 +7,8 @@ return {
 		-- Setup treesitter with default install directory
 		require("nvim-treesitter").setup({})
 
-		-- Install common parsers asynchronously
+		-- Install common parsers asynchronously, but only the ones not yet installed.
+		-- This avoids spamming downloads (and the associated UI noise) on every startup.
 		local parsers = {
 			"lua",
 			"vim",
@@ -20,7 +21,6 @@ return {
 			"json",
 			"yaml",
 			"xml",
-			"markdown",
 			"markdown",
 			"markdown_inline",
 			"apex",
@@ -39,8 +39,15 @@ return {
 			"terraform",
 		}
 
-		-- Install parsers in the background (non-blocking)
-		require("nvim-treesitter").install(parsers)
+		local ts = require("nvim-treesitter")
+		local installed = ts.get_installed("parsers") or {}
+		local to_install = vim.tbl_filter(function(p)
+			return not vim.list_contains(installed, p)
+		end, parsers)
+
+		if #to_install > 0 then
+			ts.install(to_install)
+		end
 
 		-- Enable treesitter highlight for every buffer that has a parser available.
 		-- The new main-branch API does not enable highlight automatically.
