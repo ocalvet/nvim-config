@@ -42,10 +42,8 @@ vim.keymap.set("n", "<leader>we", "<C-w>=", { desc = "Equal splits" })
 vim.keymap.set("n", "<leader>wx", ":close<CR>", { desc = "Close split" })
 
 -- Navigate splits
-vim.keymap.set("n", "<C-k>", ":wincmd k<CR>", { desc = "Go to upper window" })
-vim.keymap.set("n", "<C-j>", ":wincmd j<CR>", { desc = "Go to lower window" })
-vim.keymap.set("n", "<C-h>", ":wincmd h<CR>", { desc = "Go to left window" })
-vim.keymap.set("n", "<C-l>", ":wincmd l<CR>", { desc = "Go to right window" })
+-- Handled by vim-tmux-navigator (smart vim + tmux pane navigation)
+-- See lua/plugins/misc.lua for the actual mappings
 
 -- Tab management (uppercase T prefix to avoid conflict with <leader>t = Tests)
 vim.keymap.set("n", "<leader>To", ":tabnew<CR>", { desc = "New tab" })
@@ -67,8 +65,8 @@ vim.keymap.set("v", "p", '"_dP', { desc = "Paste without yank" })
 vim.keymap.set("v", "J", ":m '>+1<CR>gv=gv", { desc = "Move selection down" })
 vim.keymap.set("v", "K", ":m '<-2<CR>gv=gv", { desc = "Move selection up" })
 
--- Terminal escape
-vim.keymap.set("t", "<Esc><Esc>", "<C-\\><C-n>", { desc = "Exit terminal mode" })
+-- Terminal escape handled by snacks (double-Esc, 350ms window)
+-- See terminal.lua styles.terminal.keys.term_normal
 
 -- Diagnostics
 vim.keymap.set("n", "[d", function()

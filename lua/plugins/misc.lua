@@ -2,7 +2,20 @@
 return {
   {
     -- Tmux & split window navigation
+    -- Note: <C-\> is intentionally omitted (we use it for terminal toggle)
     "christoomey/vim-tmux-navigator",
+    event = "VeryLazy",
+    init = function()
+      -- Prevent the plugin from creating its default mappings (including <C-\>)
+      vim.g.tmux_navigator_no_mappings = 1
+    end,
+    config = function()
+      -- Define mappings here (after no_mappings) so they are always available
+      vim.keymap.set({ "n", "t" }, "<c-h>", "<cmd>TmuxNavigateLeft<cr>")
+      vim.keymap.set({ "n", "t" }, "<c-j>", "<cmd>TmuxNavigateDown<cr>")
+      vim.keymap.set({ "n", "t" }, "<c-k>", "<cmd>TmuxNavigateUp<cr>")
+      vim.keymap.set({ "n", "t" }, "<c-l>", "<cmd>TmuxNavigateRight<cr>")
+    end,
   },
   {
     -- Detect tabstop and shiftwidth automatically
