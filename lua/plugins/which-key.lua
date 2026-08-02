@@ -175,6 +175,10 @@ return {
       { "<leader><leader>", desc = "Find Buffers" },
       { "<leader>lp", desc = "Log Point" },
 
+      -- Terminal
+      { "<c-\\>", desc = "Toggle Terminal" },
+      { "<leader>\\", desc = "Toggle Terminal" },
+
       -- Function keys
       { "<F5>", desc = "Continue Debug" },
       { "<F10>", desc = "Step Over" },

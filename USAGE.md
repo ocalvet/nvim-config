@@ -12,9 +12,10 @@ This guide covers all keybindings and workflows for this Neovim setup.
 6. [LSP Features](#lsp-features)
 7. [Debugging](#debugging)
 8. [Testing](#testing)
-9. [Editing Enhancements](#editing-enhancements)
-
----
+ 9. [Editing Enhancements](#editing-enhancements)
+10. [Terminal](#terminal)
+ 
+ ---
 
 ## Getting Started
 
@@ -342,6 +343,47 @@ This config provides a unified Git experience with three integrated tools:
 ### Auto-pairs
 
 Automatically closes `()`, `[]`, `{}`, `""`, `''`
+
+---
+
+## Terminal
+
+Toggleable shell and visible output for external commands.
+
+### Toggle
+
+| Keymap | Action |
+|--------|--------|
+| `<C-\>` | Toggle terminal (bottom split) |
+| `<leader>\` | Toggle terminal |
+
+Inside an open terminal:
+- Type normally (insert mode starts automatically on open)
+- `<Esc><Esc>` — exit to normal mode in the terminal
+- `q` (normal mode) — hide the terminal window
+
+The same terminal instance is reused on toggle.
+
+### Running commands with `:!`
+
+`:! command --arg` now runs in the integrated terminal so you can see (and scroll) the full output.
+
+- File name modifiers expand as usual (`:!echo %`, etc.).
+- After the command exits the terminal stays open with the output.
+- Press `q` (normal mode) to hide it.
+
+**Native bang filters are left alone** so these continue to work exactly as before:
+- `:w !cmd`
+- `:%!sort`
+- `:r !cmd`
+
+These still use Neovim's built-in shell execution and do not open the snacks terminal.
+
+### Tips
+
+- `<C-\>` is the primary toggle (works like many terminal emulators).
+- If you prefer a leader key, `<leader>\` is also bound.
+- Long-running commands stream live into the terminal view.
 
 ---
 

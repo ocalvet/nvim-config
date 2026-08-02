@@ -33,6 +33,7 @@ return {
       scroll     = { enabled = false },
       statuscolumn = { enabled = false },
       words      = { enabled = false },
+      terminal   = { enabled = true },
     },
     keys = {
       {
