@@ -136,6 +136,7 @@ Out-of-the-box LSP and tooling for:
 
 ## Documentation
 
+- **[SHORTCUTS.md](SHORTCUTS.md)** - Quick, high-signal shortcut cheat sheet
 - **[USAGE.md](USAGE.md)** - Complete keybindings and usage guide
 - **[AGENTS.md](AGENTS.md)** - Guidelines for AI coding agents
 
@@ -156,8 +157,9 @@ The leader key is `<Space>`. Most custom keybindings start with it.
 | `gd` | Go to definition |
 | `<leader>ca` | Code action |
 | `<leader>rn` | Rename symbol |
+| `<leader>bd` | Close buffer |
 | `<leader>tr` | Run nearest test |
-| `<F5>` | Start debugging |
+| `<F5>` | Start/continue debugging |
 
 Press `<Space>` in Neovim to see all available keybindings (via which-key).
 

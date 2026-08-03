@@ -1,6 +1,8 @@
 # Neovim Configuration Usage Guide
 
-This guide covers all keybindings and workflows for this Neovim setup.
+This guide covers keybindings and workflows for this Neovim setup.
+
+For a shorter cheat sheet, see [SHORTCUTS.md](SHORTCUTS.md).
 
 ## Table of Contents
 
@@ -59,10 +61,10 @@ The **leader key** is `<Space>`. Most custom keybindings start with it.
 
 | Keymap | Action |
 |--------|--------|
-| `<leader>v` | Split vertical |
-| `<leader>s` | Split horizontal |
-| `<leader>se` | Make splits equal |
-| `<leader>sx` | Close current split |
+| `<leader>wv` | Split vertical |
+| `<leader>ws` | Split horizontal |
+| `<leader>we` | Make splits equal |
+| `<leader>wx` | Close current split |
 | `<C-h/j/k/l>` | Navigate between splits |
 | Arrow keys | Resize windows |
 
@@ -72,7 +74,7 @@ The **leader key** is `<Space>`. Most custom keybindings start with it.
 |--------|--------|
 | `<Tab>` | Next buffer |
 | `<S-Tab>` | Previous buffer |
-| `<leader>x` | Close buffer |
+| `<leader>bd` | Close buffer |
 | `<leader>b` | New buffer |
 | `<leader><leader>` | List all buffers |
 
@@ -80,10 +82,10 @@ The **leader key** is `<Space>`. Most custom keybindings start with it.
 
 | Keymap | Action |
 |--------|--------|
-| `<leader>to` | New tab |
-| `<leader>tx` | Close tab |
-| `<leader>tn` | Next tab |
-| `<leader>tp` | Previous tab |
+| `<leader>To` | New tab |
+| `<leader>Tx` | Close tab |
+| `<leader>Tn` | Next tab |
+| `<leader>Tp` | Previous tab |
 
 ---
 
@@ -121,11 +123,12 @@ The **leader key** is `<Space>`. Most custom keybindings start with it.
 | `<leader>sf` | **Find files** |
 | `<leader>sg` | **Live grep** (search in files) |
 | `<leader>sw` | Search word under cursor |
-| `<leader>sb` | Search buffers |
+| `<leader><leader>` | Search buffers |
 | `<leader>sh` | Search help |
 | `<leader>sk` | Search keymaps |
 | `<leader>sd` | Search diagnostics |
-| `<leader>sr` | Resume last search |
+| `<leader>sr` | Search & replace (project-wide) |
+| `<leader>sR` | Search & replace (cursor word) |
 | `<leader>s.` | Recent files |
 | `<leader>s/` | Search in open files |
 | `<leader>/` | Fuzzy search current buffer |
@@ -135,7 +138,8 @@ The **leader key** is `<Space>`. Most custom keybindings start with it.
 |-----|--------|
 | `<C-j/k>` | Navigate results |
 | `<C-l>` or `<CR>` | Open selection |
-| `<C-s>` | Toggle flash (jump to result) |
+
+Note: `<leader>sr` is intentionally mapped to search-and-replace (grug-far), so there is no keybinding for Telescope resume.
 
 ---
 
@@ -154,7 +158,6 @@ This config provides a unified Git experience with three integrated tools:
 | `<leader>gc` | Commit |
 | `<leader>gP` | Push |
 | `<leader>gp` | Pull |
-| `<leader>gb` | Branch popup |
 
 **Inside Neogit:**
 - `s` - Stage file/hunk
@@ -225,7 +228,7 @@ This config provides a unified Git experience with three integrated tools:
 | `gD` | Go to declaration |
 | `<leader>D` | Type definition |
 | `<leader>ds` | Document symbols |
-| `<leader>ws` | Workspace symbols |
+| `<leader>fws` | Workspace symbols |
 
 ### Actions
 
@@ -233,7 +236,6 @@ This config provides a unified Git experience with three integrated tools:
 |--------|--------|
 | `<leader>rn` | Rename symbol |
 | `<leader>ca` | Code action |
-| `K` | Hover documentation |
 | `<leader>th` | Toggle inlay hints |
 
 ### Diagnostics
@@ -281,7 +283,7 @@ This config provides a unified Git experience with three integrated tools:
 | `<leader>dh` | Hover variable |
 | `<leader>dp` | Preview variable |
 | `<leader>df` | Show frames |
-| `<leader>ds` | Show scopes |
+| `<leader>dS` | Show scopes |
 
 ### Supported Languages
 
@@ -301,6 +303,7 @@ This config provides a unified Git experience with three integrated tools:
 | `<leader>tf` | Run file tests |
 | `<leader>td` | Debug nearest test |
 | `<leader>ts` | Stop running tests |
+| `<leader>ta` | Attach to running test |
 | `<leader>tt` | Toggle summary |
 | `<leader>to` | Show output |
 | `<leader>tO` | Toggle output panel |
@@ -333,12 +336,6 @@ This config provides a unified Git experience with three integrated tools:
 - `cs"'` - Change double to single quotes
 - `ds(` - Delete parentheses
 - `yst` - Surround with HTML tag
-
-### Comments
-
-- `gcc` - Toggle line comment
-- `gc{motion}` - Toggle comment
-- `gbc` - Toggle block comment
 
 ### Auto-pairs
 
@@ -422,15 +419,15 @@ Press `<leader>` and wait to see available keybindings.
 | Keymap | Action |
 |--------|--------|
 | `<C-s>` | Save |
-| `<leader>x` | Close buffer |
+| `<leader>bd` | Close buffer |
 | `<Tab>/<S-Tab>` | Next/prev buffer |
 
 ### Window Management
 
 | Keymap | Action |
 |--------|--------|
-| `<leader>v` | Vertical split |
-| `<leader>s` | Horizontal split |
+| `<leader>wv` | Vertical split |
+| `<leader>ws` | Horizontal split |
 | `<C-h/j/k/l>` | Navigate splits |
 
 ---
