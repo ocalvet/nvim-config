@@ -44,6 +44,23 @@ return {
     opts = { signs = false },
   },
   {
+    -- Python virtualenv discovery and switching
+    "linux-cultist/venv-selector.nvim",
+    ft = "python",
+    cmd = { "VenvSelect", "VenvSelectCache", "VenvSelectLog" },
+    keys = {
+      { "<leader>tv", "<cmd>VenvSelect<CR>", desc = "Select Python environment" },
+    },
+    opts = {
+      options = {
+        fd_binary_name = vim.fn.executable("fdfind") == 1 and "fdfind" or "fd",
+        cached_venv_automatic_activation = true,
+        activate_venv_in_terminal = true,
+        set_environment_variables = true,
+      },
+    },
+  },
+  {
     -- High-performance color highlighter (maintained fork of norcalli/nvim-colorizer.lua)
     "NvChad/nvim-colorizer.lua",
     event = "BufReadPre",

@@ -139,6 +139,7 @@ return {
       { "<leader>tO", desc = "Toggle Output Panel" },
       { "<leader>tt", desc = "Test Summary" },
       { "<leader>tw", desc = "Watch Tests" },
+      { "<leader>tv", desc = "Select Python environment" },
 
       -- Debugging
       { "<leader>d", group = "Debug" },

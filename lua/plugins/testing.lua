@@ -10,6 +10,7 @@ return {
   },
   config = function()
     local neotest = require("neotest")
+    local python_utils = require("utils.python")
 
     neotest.setup({
       adapters = {
@@ -17,7 +18,9 @@ return {
           dap = { justMyCode = false },
           args = { "--log-level", "DEBUG" },
           runner = "pytest",
-          python = "python",
+          python = function(root)
+            return python_utils.get_python(root)
+          end,
           pytest_discover_instances = true,
         }),
         require("neotest-jest")({

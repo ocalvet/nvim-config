@@ -19,6 +19,7 @@ return {
   config = function()
     local dap = require("dap")
     local dapui = require("dapui")
+    local python_utils = require("utils.python")
 
     -- DAP UI setup
     dapui.setup({
@@ -70,6 +71,9 @@ return {
 
     -- Python DAP setup
     require("dap-python").setup(vim.fn.stdpath("data") .. "/mason/packages/debugpy/venv/bin/python")
+    require("dap-python").resolve_python = function()
+      return python_utils.get_python()
+    end
     require("dap-python").test_runner = "pytest"
 
     -- Go DAP setup
