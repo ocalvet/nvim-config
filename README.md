@@ -128,7 +128,7 @@ bob use nightly
 Out-of-the-box LSP and tooling for:
 - **Lua** - lua_ls with Neovim API support
 - **Python** - basedpyright + ruff
-- **JavaScript/TypeScript** - ts_ls + prettier + eslint
+- **JavaScript/TypeScript** - vtsls + prettier + eslint
 - **Go** - gopls
 - **Web** - HTML, CSS, Tailwind CSS
 - **DevOps** - Docker, Docker Compose, Terraform, YAML, JSON, SQL, Bash, TOML
@@ -187,7 +187,7 @@ Edit `lua/plugins/lsp.lua` and add to the `ensure_installed` list:
 
 ```lua
 ensure_installed = {
-  "ts_ls", "basedpyright", "rust_analyzer",  -- Add your server
+  "vtsls", "basedpyright", "rust_analyzer",  -- Add your server
 },
 ```
 

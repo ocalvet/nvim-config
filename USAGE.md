@@ -288,7 +288,7 @@ This config provides a unified Git experience with three integrated tools:
 ### Supported Languages
 
 - **Python** - Requires `debugpy` (`pip install debugpy`)
-- **JavaScript/TypeScript** - Uses node-debug2-adapter
+- **JavaScript/TypeScript** - Uses js-debug-adapter
 - **Go** - Requires `delve`
 
 ---
